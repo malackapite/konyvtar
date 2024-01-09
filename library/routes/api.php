@@ -30,18 +30,18 @@ Route::middleware( ['admin'])->group(function () {
 
 //bejelentkezett felhasználó
 Route::middleware('auth.basic')->group(function () {
-    Route::post('/lendings', [LendingController::class, 'store']);
-    Route::get('/reservations/{user_id}/{book_id}/{start}', [ReservationController::class, 'show']);
-    Route::patch('/reservations/{user_id}/{book_id}/{start}', [ReservationController::class, 'update']);
-    Route::post('/reservations', [ReservationController::class, 'store']);
-    Route::apiResource('/copies', CopyController::class);
+    Route::post('lendings', [LendingController::class, 'store']);
+    Route::get('reservations/{user_id}/{book_id}/{start}', [ReservationController::class, 'show']);
+    Route::patch('reservations/{user_id}/{book_id}/{start}', [ReservationController::class, 'update']);
+    Route::post('reservations', [ReservationController::class, 'store']);
+    Route::apiResource('copies', CopyController::class);
     //lekérdezések
     //with
-    Route::get('/with/book_copy', [BookController::class, 'bookCopy']);
-    Route::get('/with/lending_user', [LendingController::class, 'lendingUser']);
-    Route::get('/with/lending_user2', [LendingController::class, 'lendingUser2']);
-    Route::get('/with/copy_book_lending', [CopyController::class, 'copyBookLending']);
-    Route::get('/with/user_l_r', [UserController::class, 'userLR']);
+    Route::get('with/book_copy', [BookController::class, 'bookCopy']);
+    Route::get('with/lending_user', [LendingController::class, 'lendingUser']);
+    Route::get('with/lending_user2', [LendingController::class, 'lendingUser2']);
+    Route::get('with/copy_book_lending', [CopyController::class, 'copyBookLending']);
+    Route::get('with/user_l_r', [UserController::class, 'userLR']);
     //egyéb lekérdezések
     Route::get('books_at_user', [LendingController::class, 'booksAtUser']);
     //lengthen($copy_id, $start)
@@ -49,6 +49,8 @@ Route::middleware('auth.basic')->group(function () {
     //moreLendings($copy_id, $db)
     Route::get('more_lendings/{copy_id}/{db}', [CopyController::class, 'moreLendings']);
     Route::get('books_back', [LendingController::class, 'booksBack']);
+    //trigger és társai
+    Route::patch('bring_back/{copy_id}/{start}', [LendingController::class, 'bringBack']);
 });
 
 //bejelentkezés nélkül is hozzáférhet
