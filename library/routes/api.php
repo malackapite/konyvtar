@@ -24,8 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //admin férhet hozzá
-Route::middleware( ['admin'])->group(function () {
-    Route::apiResource('/api/users', UserController::class);
+// Route::middleware( ['admin'])->group(function () {
+//     Route::apiResource('/users', UserController::class);
+// });
+
+Route::group(['middleware' => 'web'], function () {
+    Route::apiResource('/users', UserController::class);
+    Route::get('/sus2', [LendingController::class, 'index']);
 });
 
 //bejelentkezett felhasználó
